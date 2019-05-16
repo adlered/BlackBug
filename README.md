@@ -29,7 +29,13 @@ Run the main methods in `Client.java` and `Server.java`. If the configuration is
 
 legend:
 
-![DEMO](/images/guide.png)
+![DEMO](/images/Guide.png)
+
+Attached:
+
+Client listening process control:
+
+![QueueControl](/images/QueueControl.png)
 
 # 中文版本
 
@@ -55,4 +61,10 @@ legend:
 
 图例：
 
-![DEMO](/images/guide.png)
+![DEMO](/images/Guide.png)
+
+附：
+
+客户端监听流程控制：
+
+![QueueControl](/images/QueueControl.png)
