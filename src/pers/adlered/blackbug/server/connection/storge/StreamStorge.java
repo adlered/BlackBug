@@ -11,4 +11,7 @@ public class StreamStorge {
     public static TreeMap<Integer, Socket> sockets = new TreeMap<Integer, Socket>();
 
     public static ExecutorService receiverPool = Executors.newCachedThreadPool();
+
+    public static TreeMap<Integer, String> detailOfOS = new TreeMap<Integer, String>();
+    public static TreeMap<Integer, String> detailOfOSDetail = new TreeMap<Integer, String>();
 }

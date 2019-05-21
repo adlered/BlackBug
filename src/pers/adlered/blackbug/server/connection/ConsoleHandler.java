@@ -2,11 +2,13 @@ package pers.adlered.blackbug.server.connection;
 
 import pers.adlered.blackbug.server.Temp;
 import pers.adlered.blackbug.server.connection.storge.StreamStorge;
+import pers.adlered.blackbug.server.tools.ConsoleTable;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
+import java.util.stream.Stream;
 
 public class ConsoleHandler {
     public static String handle(String command) {
@@ -29,14 +31,21 @@ public class ConsoleHandler {
             result += "[Command] UID " + Temp.currentUID + " set.";
         }
         if (command.equals("/list")) {
-            result += "======== UID ========\n";
+            //result += "======== UID ========\n";
+            ConsoleTable consoleTable = new ConsoleTable(3, true);
+            consoleTable.appendRow();
+            consoleTable.appendColumn("UID").appendColumn("OS Detail").appendColumn("Address");
             Iterator<Integer> iterator = StreamStorge.sockets.keySet().iterator();
             while (iterator.hasNext()) {
                 int key = iterator.next();
-                result += "UID-" + key + " | ";
-                result += "bug:/" + StreamStorge.sockets.get(key).getRemoteSocketAddress() + "\n";
+                //result += "UID-" + key + " | ";
+                //result += StreamStorge.detailOfOSDetail.get(key) + " | ";
+                //result += "bug:/" + StreamStorge.sockets.get(key).getRemoteSocketAddress() + "\r\n";
+                consoleTable.appendRow();
+                consoleTable.appendColumn(key).appendColumn(StreamStorge.detailOfOSDetail.get(key)).appendColumn("bug:/" + StreamStorge.sockets.get(key).getRemoteSocketAddress());
             }
-            result += "======== DIU ========\n";
+            //result += "======== DIU ========\n";
+            result += consoleTable.toString();
         }
         if (command.startsWith("/broadcast ")) {
             String broadcastCommand = "/cmd " + command.replaceFirst("/broadcast ", "");

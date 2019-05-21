@@ -41,7 +41,19 @@ public class Receiver extends Thread {
                 try {
                     String str;
                     while((str = bufferedReader.readLine()) != null){
-                        if (str.indexOf("Heart :: AliveTime :: ") == -1) {
+                        boolean print = true;
+                        if (str.startsWith("Information :: Running on :: ")) {
+                            String OS = str.replaceFirst("Information :: Running on :: ", "");
+                            StreamStorge.detailOfOS.put(UID, OS);
+                        }
+                        if (str.startsWith("Information :: System detail :: ")) {
+                            String OSDetail = str.replaceFirst("Information :: System detail :: ", "");
+                            StreamStorge.detailOfOSDetail.put(UID, OSDetail);
+                        }
+                        if (str.indexOf("Heart :: AliveTime :: ") != -1) {
+                            print = false;
+                        }
+                        if (print) {
                             System.out.println("[UID-" + UID + "] " + str);
                         }
                     }
