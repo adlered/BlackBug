@@ -48,17 +48,17 @@ public class Shell {
     }
 
     public static String windows(String command) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         try {
-            Process process = Runtime.getRuntime().exec(command);
+            Process process = Runtime.getRuntime().exec("cmd.exe /c " + command);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream(), "GBK"));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line + "\n");
+                stringBuilder.append(line + "\n");
             }
-        } catch (Exception e) {
-            return e.toString();
+        } catch (Exception E) {
+            return E.toString();
         }
-        return sb.toString();
+        return stringBuilder.toString();
     }
 }

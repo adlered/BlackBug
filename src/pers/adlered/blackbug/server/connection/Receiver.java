@@ -41,7 +41,9 @@ public class Receiver extends Thread {
                 try {
                     String str;
                     while((str = bufferedReader.readLine()) != null){
-                        System.out.println("[UID-" + UID + "] " + str);
+                        if (str.indexOf("Heart :: AliveTime :: ") == -1) {
+                            System.out.println("[UID-" + UID + "] " + str);
+                        }
                     }
                 } catch (SocketException SE) {
                     DoShutdown.doShutdown.add(UID);

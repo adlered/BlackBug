@@ -13,9 +13,13 @@ import java.io.IOException;
 public class AliveChecking extends Thread {
     @Override
     public void run() {
+        int runTime = 0;
         while (true) {
             try {
-                Pool.clientSocket.sendUrgentData(0xFF);
+                runTime += 2;
+                //Pool.clientSocket.sendUrgentData(0xFF);
+                Pool.clientDataOutputStream.write(("Heart :: AliveTime :: " + runTime + "S\r\n").getBytes());
+                Pool.clientDataOutputStream.flush();
             } catch (IOException IOE) {
                 reconnect();
             } catch (NullPointerException NPE) {

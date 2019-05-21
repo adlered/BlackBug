@@ -3,8 +3,7 @@ package pers.adlered.blackbug.server.connection;
 import pers.adlered.blackbug.server.Temp;
 import pers.adlered.blackbug.server.connection.storge.StreamStorge;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.SocketException;
 import java.util.Scanner;
 
@@ -26,7 +25,12 @@ public class ConsoleListener extends Thread {
                     } else {
                         boolean dontOutput = false;
                         try {
-                            new DataOutputStream(StreamStorge.sockets.get(Temp.currentUID).getOutputStream()).write(input.getBytes());
+                            //DataOutputStream dataOutputStream = new DataOutputStream(StreamStorge.sockets.get(Temp.currentUID).getOutputStream());
+                            //dataOutputStream.write(input.getBytes());
+                            //dataOutputStream.flush();
+                            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(StreamStorge.sockets.get(Temp.currentUID).getOutputStream(), "UTF-8"));
+                            bufferedWriter.write(input);
+                            bufferedWriter.flush();
                         } catch (NullPointerException NPE) {
                             System.out.println("[Failed] Client not exists. (UID-" + Temp.currentUID + ")");
                             dontOutput = true;
