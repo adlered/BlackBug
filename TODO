@@ -2,5 +2,7 @@
 2. ko UID List
 3. ko Alive checking类由于修改了TreeMap所以导致索引变更无法正常读取
 4. Alive time
-5. /setuid *
+5. ko /broadcast
 6. Shell interactive mode
+7. Multi-selector
+8. /list system version
