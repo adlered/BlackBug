@@ -11,6 +11,19 @@ import pers.adlered.blackbug.client.dao.Properties;
 import java.io.IOException;
 
 public class AliveChecking extends Thread {
+    public static void reconnect() {
+        Values.connected = false;
+        System.out.print("Unable connection " + Properties.getServerIP() + ":" + Properties.getServerPORT() + ". Reconnecting");
+        while (!Values.connected) {
+            try {
+                new Connector().start();
+                System.out.print(".");
+                Thread.sleep(3500);
+            } catch (InterruptedException IE) {
+            }
+        }
+    }
+
     @Override
     public void run() {
         int runTime = 0;
@@ -44,19 +57,6 @@ public class AliveChecking extends Thread {
                 Thread.sleep(100);
             } catch (InterruptedException IE) {
             }*/
-        }
-    }
-
-    public static void reconnect() {
-        Values.connected = false;
-        System.out.print("Unable connection " + Properties.getServerIP() + ":" + Properties.getServerPORT() + ". Reconnecting");
-        while (!Values.connected) {
-            try {
-                new Connector().start();
-                System.out.print(".");
-                Thread.sleep(3500);
-            } catch (InterruptedException IE) {
-            }
         }
     }
 }

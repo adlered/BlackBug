@@ -5,14 +5,10 @@ import java.util.List;
 
 public class ConsoleTable {
 
-    private List<List> rows = new ArrayList<List>();
-
-    private int colum;
-
-    private int[] columLen;
-
     private static int margin = 2;
-
+    private List<List> rows = new ArrayList<List>();
+    private int colum;
+    private int[] columLen;
     private boolean printHeader = false;
 
     public ConsoleTable(int colum, boolean printHeader) {

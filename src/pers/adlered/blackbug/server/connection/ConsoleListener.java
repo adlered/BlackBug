@@ -3,8 +3,11 @@ package pers.adlered.blackbug.server.connection;
 import pers.adlered.blackbug.server.Temp;
 import pers.adlered.blackbug.server.connection.storge.StreamStorge;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class ConsoleListener extends Thread {
@@ -28,7 +31,7 @@ public class ConsoleListener extends Thread {
                             //DataOutputStream dataOutputStream = new DataOutputStream(StreamStorge.sockets.get(Temp.currentUID).getOutputStream());
                             //dataOutputStream.write(input.getBytes());
                             //dataOutputStream.flush();
-                            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(StreamStorge.sockets.get(Temp.currentUID).getOutputStream(), "UTF-8"));
+                            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(StreamStorge.sockets.get(Temp.currentUID).getOutputStream(), StandardCharsets.UTF_8));
                             bufferedWriter.write(input);
                             bufferedWriter.flush();
                         } catch (NullPointerException NPE) {
