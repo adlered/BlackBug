@@ -1,6 +1,20 @@
 # BlackBug
 :bug: A general backdoor payload MultiClient/Server for Windows/macOS/Linux in Java | Windows/macOS/Linux通用系统后门Payload，支持多客户端主动&amp;自动连接服务端，使用Java编写
 
+* 服务端支持多客户端连接
+* 客户端断开连接后自动尝试重连
+* 自动匹配客户端操作系统，自动修改编码，中文不乱码
+* 要求指定客户端执行命令或广播给所有客户端执行命令
+
+警告！本项目不包含任何恶意代码，不会开机自启，仅能用于测试学习使用！
+
+* Server supports multi-client connection
+* Automatically try to reconnect after the client disconnects
+* Automatically match the client operating system, automatically modify the encoding, Chinese is not garbled
+* Requires the specified client to execute commands or broadcast to all clients to execute commands
+
+WARNING! This project does not contain any malicious code, will not boot from the start, can only be used for testing and learning!
+
 ![Demo](/images/Demo.png)
 
 [English Version](#english-version)
