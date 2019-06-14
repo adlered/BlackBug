@@ -7,9 +7,10 @@ import pers.adlered.blackbug.server.tools.ConsoleTable;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.Socket;
+import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class ConsoleHandler {
     public static String handle(String command) {
@@ -27,6 +28,45 @@ public class ConsoleHandler {
             result += "/broadcast [command]\n";
             result += "-- Execute a system command to all connections (All system support)\n";
             result += "======== PLEH ========";
+        }
+
+        if (command.startsWith("/cmd")) {
+            Scanner scanner = new Scanner(System.in);
+            String input = "";
+            if (Temp.currentUID < 0) {
+                return "[Command] Please specific UID in \"/setuid [UID]\" first.";
+            } else {
+                System.out.println("[Command] Entering Shell-Interactive-Mode. Input \"Q\" to quit.");
+            }
+            while (true) {
+                input = scanner.nextLine();
+                if (input.equals("Q")) {
+                    result += "[Command] Shell-Interactive-Mode disabled.";
+                    break;
+                } else {
+                    boolean dontOutput = false;
+                    try {
+                        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(StreamStorge.sockets.get(Temp.currentUID).getOutputStream(), StandardCharsets.UTF_8));
+                        bufferedWriter.write("/cmd " + input);
+                        bufferedWriter.flush();
+                    } catch (NullPointerException NPE) {
+                        System.out.println("[Failed] Client not exists. (UID-" + Temp.currentUID + ")");
+                        dontOutput = true;
+                    } catch (SocketException SE) {
+                        System.out.println("[Failed] Client " + Temp.currentUID + " offline.");
+                        StreamStorge.sockets.remove(Temp.currentUID);
+                        dontOutput = true;
+                    } catch (IOException IOE) {
+                        IOE.printStackTrace();
+                    }
+                    if (!dontOutput) {
+                        System.out.println("[Trans2Client UID-" + Temp.currentUID + "] " + "/cmd " + input);
+                    } else {
+                        System.out.println("[ERROR] Exception captured. Shell-Interactive-Mode unexpected disabled.");
+                        break;
+                    }
+                }
+            }
         }
 
         if (command.startsWith("/setuid ")) {

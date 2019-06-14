@@ -62,12 +62,13 @@ public class Receiver extends Thread {
                 }
             }
 
-            /*DataInputStream dataInputStream = new DataInpu/tStream(socket.getInputStream());
+            /*DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
             byte[] buffer = new byte[65536];
             int length = 0;
             while ((length = socket.getInputStream().read(buffer)) != -1) {
                 System.out.println(new String(buffer, 0, length));
             }*/
+
         } catch (IOException IOE) {
             IOE.printStackTrace();
         } catch (NullPointerException NPE) {

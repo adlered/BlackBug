@@ -18,13 +18,13 @@ public class ConsoleListener extends Thread {
         while (true) {
             input = scanner.nextLine();
             if (input.equals("/setuid ")) {
-                System.out.println("Please specific an UID!");
+                System.out.println("[Command] Please specific an UID!");
             } else {
                 String result = ConsoleHandler.handle(input);
                 if (result.isEmpty()) {
                     //Standard message send
                     if (Temp.currentUID < 0) {
-                        System.out.println("Please specific UID in \"/setuid [UID]\" first.");
+                        System.out.println("[Command] Please specific UID in \"/setuid [UID]\" first.");
                     } else {
                         boolean dontOutput = false;
                         try {
