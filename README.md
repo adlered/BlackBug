@@ -43,6 +43,8 @@ Run the main methods in `Client.java` and `Server.java`. If the configuration is
 
 `/cmd [command]` - execute a remote command on the selected client and get the result
 
+`/cmd` Enter Shell-Interactive-Mode
+
 `/broadcast [command]` - execute the specified command on all connected clients
 
 legend:
@@ -76,6 +78,8 @@ Client listening process control:
 `/setuid [UID]` - 选定要操作的UID
 
 `/cmd [命令]` - 对选定的客户端执行远程命令并获取返回结果
+
+`/cmd` - 进入终端交互模式
 
 `/broadcast [命令]` - 对已连接的所有客户端执行指定命令
 
